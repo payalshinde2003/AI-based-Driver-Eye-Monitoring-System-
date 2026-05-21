@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><title>Get Location</title></head>
+<body>
+<script>
+function sendLocation() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        const data = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
+        fetch('http://localhost:5000/location', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+    });
+}
+// keep updating location every 5s
+setInterval(sendLocation, 5000);
+sendLocation();
+</script>
+</body>
+</html>
